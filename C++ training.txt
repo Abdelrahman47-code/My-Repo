@@ -1,4 +1,6 @@
 #include<bits/stdc++.h>
+using namespace std;
+
 counter = 0
 s = int(input("Enter thr sum of numbers: "))
 
