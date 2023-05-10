@@ -3,6 +3,7 @@ FROM web_events AS web
 JOIN accounts AS ac
 ON ac.name like 'Walmart';
 
+#############################
 
 SELECT r.name regionName, s.name sales_repName, ac.name accountsName
 FROM region AS r
@@ -12,6 +13,7 @@ JOIN accounts AS ac
 ON ac.sales_rep_id = s.id
 ORDER BY ac.name DESC;
 
+#############################
 
 SELECT s.name regionName, (o.total_amt_usd/((o.total)+0.01)) unitPrice, ac.name accountName
 FROM accounts AS ac
@@ -19,6 +21,8 @@ JOIN orders AS o
 ON o.account_id = ac.id
 JOIN sales_reps AS s
 ON ac.sales_rep_id = s.id;
+
+#############################
 
 SELECT r.name region, a.name account, o.total_amt_usd/(o.total + 0.01) unit_price
 FROM region r
@@ -29,8 +33,9 @@ ON a.sales_rep_id = s.id
 JOIN orders o
 ON o.account_id = a.id;
 
-Quiz2
-1) Select r.name region, s.name sales_rep, ac.name account
+#############################
+
+Select r.name region, s.name sales_rep, ac.name account
 From region r
 Join sales_reps s
 On r.id = s.region_id
@@ -39,7 +44,9 @@ On r.id = s.region_id
 Where r.name = 'Midwest'
 Order By ac.name Desc;
 
-2) Select r.name region, s.name sales_rep, ac.name account
+#############################
+
+Select r.name region, s.name sales_rep, ac.name account
 From region r
 Join sales_reps s
 On r.id = s.region_id
@@ -49,7 +56,9 @@ Where r.name = 'Midwest'
 And s.name like 'S%'
 Order By ac.name Desc;
 
-3) Select r.name region, s.name sales_rep, ac.name account
+#############################
+
+Select r.name region, s.name sales_rep, ac.name account
 From region r
 Join sales_reps s
 On r.id = s.region_id
@@ -59,9 +68,9 @@ Where r.name = 'Midwest'
 And s.name like '% K%'
 Order By ac.name Desc;
 
-4) 
+#############################
 
-5) Select r.name region, ac.name account, (od.total_amt_usd/(od.total+0.01)) unitPrice
+Select r.name region, ac.name account, (od.total_amt_usd/(od.total+0.01)) unitPrice
 From region r 
 Join sales_reps s
 On r.id = s.region_id
@@ -73,13 +82,17 @@ Where od.standard_qty>100
 And od.poster_qty>50
 Order By od.poster_qty Desc;
 
-7) Select Distinct w.channel channel, ac.name account
+#############################
+
+Select Distinct w.channel channel, ac.name account
 From accounts ac
 Join web_events w
 On ac.id = w.account_id
 Where ac.id = 1001;
 
-8) Select *
+#############################
+
+Select *
 From orders od
 Join accounts ac
 On od.account_id = ac.id
@@ -87,9 +100,9 @@ Join web_events we
 On we.account_id = ac.id
 Where we.occurred_at Between '2015-01-01' And '2016-01-01';
 
+#############################
 
-Quiz3
-1) Select ac.name, od.occurred_at
+Select ac.name, od.occurred_at
 From orders od
 Join accounts ac
 On ac.id = od.account_id
@@ -97,44 +110,54 @@ Group By ac.name, od.occurred_at
 Order by od.occurred_at
 limit 1;
 
-2) Select ac.name, (od.total_amt_usd+od.standard_amt_usd+od.gloss_amt_usd+od.poster_amt_usd)
+#############################
+
+Select ac.name, (od.total_amt_usd+od.standard_amt_usd+od.gloss_amt_usd+od.poster_amt_usd)
 From orders od
 Join accounts ac
 On ac.id = od.account_id
 Join sales_reps s
 On s.id = ac.sales_rep_id;
 
-3) Select ac.name, we.occurred_at Date, we.channel Channel
+#############################
+
+Select ac.name, we.occurred_at Date, we.channel Channel
 From web_events we
 Join accounts ac
 On ac.id = we.account_id
 Order By we.occurred_at Desc
 Limit 1;
 
-4) Select ac.primary_poc, we.occurred_at Date
+#############################
+
+Select ac.primary_poc, we.occurred_at Date
 From web_events we
 Join accounts ac
 On ac.id = we.account_id
 Order By we.occurred_at Desc
 Limit 1;
 
-5) Select ac.name account, od.total_amt_usd Total
+#############################
+
+Select ac.name account, od.total_amt_usd Total
 From orders od
 Join accounts ac
 On ac.id = od.account_id
 Order By od.total_amt_usd
 Limit 1;
 
-6) Select r.name, count(*) Total
+#############################
+
+Select r.name, count(*) Total
 From region r
 Join sales_reps s
 On r.id = s.region_id
 Group by r.name
 Limit 1;
 
-Quiz3
+#############################
 
-1) Select ac.name account,
+Select ac.name account,
 		round(Avg(o.standard_qty),2) avg_standard,
         round(Avg(o.gloss_qty),2) avg_gloss,
         round(Avg(o.poster_qty),2) avg_poster
@@ -144,7 +167,9 @@ On o.account_id = ac.id
 Group by ac.name
 Order by ac.name;
 
-3) Select s.name Sales_rep, w.channel channel, count(*) Occurances
+#############################
+
+Select s.name Sales_rep, w.channel channel, count(*) Occurances
 From sales_reps s
 Join accounts ac
 On ac.sales_rep_id = s.id
@@ -153,7 +178,9 @@ On ac.id = w.account_id
 Group by s.name, w.channel
 Order by occurances desc;
 
-4) Select r.name region, w.channel channel, count(*) Occurances
+#############################
+
+Select r.name region, w.channel channel, count(*) Occurances
 From sales_reps s
 Join accounts ac
 On ac.sales_rep_id = s.id
@@ -164,7 +191,9 @@ On r.id = s.region_id
 Group by r.name, w.channel
 Order by region desc, occurances desc;
 
-5) Select Distinct r.name region, ac.name account, s.id
+#############################
+
+Select Distinct r.name region, ac.name account, s.id
 From region r
 Join sales_reps s
 On s.region_id = r.id
@@ -172,9 +201,9 @@ Join accounts ac
 On ac.sales_rep_id = s.id
 Group by r.name, ac.name,s.id;
 
-############
+#############################
 
-1) Select s.name "Sales Rep", count(*) "Number of accounts"
+Select s.name "Sales Rep", count(*) "Number of accounts"
 From sales_reps s
 Join accounts ac
 On ac.sales_rep_id = s.id
@@ -182,14 +211,18 @@ Group by s.name
 Having count(ac.name) > 5
 Order by s.name Desc;
 
-2) Select ac.name Account, count(*) "Number of orders"
+#############################
+
+Select ac.name Account, count(*) "Number of orders"
 From accounts ac
 Join orders o
 On o.account_id = ac.id
 Group by ac.name
 Having count(ac.name) > 20;
 
-3) Select ac.name Account, count(*) orders
+#############################
+
+Select ac.name Account, count(*) orders
 From accounts ac
 Join orders o
 On o.account_id = ac.id
@@ -197,14 +230,18 @@ Group by ac.name
 Order by orders desc
 limit 1;
 
-4) Select ac.name Account, count(*) orders
+#############################
+
+Select ac.name Account, count(*) orders
 From accounts ac
 Join orders o
 On o.account_id = ac.id
 Group by ac.name
 Having sum(total_amt_usd+poster_amt_usd+gloss_amt_usd+standard_amt_usd)>30000;
 
-5) Select ac.name Account, sum(o.total) total
+#############################
+
+Select ac.name Account, sum(o.total) total
 From accounts ac
 Join orders o
 On o.account_id = ac.id
@@ -212,7 +249,9 @@ Group by ac.name
 Order by total Desc
 Limit 1;
 
-6) Select ac.name Account, w.channel channel
+#############################
+
+Select ac.name Account, w.channel channel
 From accounts ac
 Join web_events w
 On w.account_id = ac.id
@@ -220,14 +259,16 @@ Group by ac.name, w.channel
 Having w.channel = 'facebook' and count(w.channel)>6
 Order by count(*) Desc;
 
-7) Select ac.name Account, w.channel channel
+#############################
+
+Select ac.name Account, w.channel channel
 From accounts ac
 Join web_events w
 On w.account_id = ac.id
 Group by ac.name, w.channel
 Order by count(*) Desc;
 
-########
+#############################
 
 Select ac.name Account, w.channel channel
 From accounts ac
@@ -237,7 +278,8 @@ Group by ac.name, w.channel
 Order by count(*) Desc
 Limit 1;
 
-######
+#############################
+
 SELECT DATE_TRUNC('month', o.occurred_at) ord_date, SUM(o.gloss_amt_usd) tot_spent
 FROM orders o 
 JOIN accounts a
@@ -256,7 +298,7 @@ SELECT account_id,
             ELSE '100 or under' END AS total_group
 FROM orders
 
-######
+#############################
 
 With table1 As (Select s.name sal, r.name reg, sum(total_amt_usd) total
                 From orders o
@@ -272,6 +314,7 @@ Select sal, max(total)
 From table1
 Group by 1
 
+#############################
 
 Select count(*)
 From orders
@@ -285,21 +328,21 @@ Having Sum(standard_qty) >
 Select max(std)
 From table1)
 
-####
-####
+#############################
 
 Select BillingCountry, count(invoiceid) Invoices
 From Invoice
 Group by 1
 Order by 2 desc;
 
-#####
+#############################
 
 Select BillingCity, sum(total) Total
 From Invoice
 Group by 1
 Order by 2 desc;
-#####
+
+#############################
 
 SELECT i.CustomerId, sum(i.total) Total
 From Invoice i
@@ -307,7 +350,8 @@ Join Customer c
 On i.CustomerId = c.CustomerId
 GROUP by 1
 ORDER by 2 DESC;
-####
+
+#############################
 
 SELECT c.Email, c.FirstName, c.LastName, g.Name
 From Track t
@@ -321,7 +365,8 @@ Join Genre g
 On t.GenreId = g.GenreId And g.Name = 'Rock'
 GROUP by 1
 order by 1;
-####
+
+#############################
 
 Select ar.ArtistId, ar.Name, count(*)
 From Artist ar
@@ -335,7 +380,8 @@ WHERE g.Name = 'Rock'
 GROUP by 1
 order by 3 DESC
 LIMIT 10;
-#####
+
+#############################
 
 Select count(ar.artistid)*in1.UnitPrice AmountSpent,ar.name
 From Artist ar
@@ -351,7 +397,8 @@ JOIN Customer c
 On c.CustomerId = in2.CustomerId
 GROUP by 2
 order by 1 DESC;
-####
+
+#############################
 
 Select ar.name, count(c.CustomerId)*in1.UnitPrice AmountSpent, c.FirstName,c.LastName,c.CustomerId
 From Artist ar
@@ -368,7 +415,8 @@ On c.CustomerId = in2.CustomerId
 WHERE ar.Name = "Iron Maiden"
 Group by 5
 order by 1 DESC;
-####
+
+#############################
 
 Select *
 From Genre g
@@ -382,15 +430,15 @@ Join Customer c
 On in2.CustomerId = c.CustomerId
 
 
+#############################
 
-####
 Select Name, Milliseconds
 FROM Track
 GROUP by 1
 HAVING Milliseconds > (Select Avg(Milliseconds)From Track)
 order by 2 DESC
 
-#######
+#############################
 
 Select c.country, in2.total, c.FirstName, c.LastName, c.CustomerId
 From Artist ar
@@ -407,6 +455,7 @@ On c.CustomerId = in2.CustomerId
 GROUP by 1,5
 ORDER by 2 DESC
 
+#############################
 
 Select DISTINCT c.country, sum(in2.total), c.CustomerId, c.FirstName, c.LastName
 From Customer c
